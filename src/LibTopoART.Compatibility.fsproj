@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;net472;net9.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1;net472;net10.0</TargetFrameworks>
     <SynchReleaseVersion>false</SynchReleaseVersion>
     <PackageId>LibTopoART.Compatibility</PackageId>
     <Authors>Marko Tscherepanow</Authors>
@@ -8,7 +8,7 @@
     <PackageIcon>logo.png</PackageIcon>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReleaseNotes>Version 0.5.0 contains the class TopoART_i64d which may wrap TopoART, TopoART-AM, TopoART-C, TopoART-R, Episodic TopoART, Hypersphere TopoART, and Hypersphere TopoART-C neural networks provided by LibTopoART. Its methods are designed in such a way that the data type int64 (aka long) is used as the main integer type and the data type double is used as the main floating point type. In addition, methods for training multiple input samples with a single call have been added to class TopoART_i64d. Furthermore, several methods have been renamed for clarity.</PackageReleaseNotes>
+    <PackageReleaseNotes>Version 0.6.0 contains the class TopoART_i64d which may wrap TopoART, TopoART-AM, TopoART-C, TopoART-R, Episodic TopoART, Hypersphere TopoART, and Hypersphere TopoART-C neural networks provided by LibTopoART. Its methods are designed in such a way that the data type int64 (aka long) is used as the main integer type and the data type double is used as the main floating point type. In addition, methods for training multiple input samples with a single call have been added to class TopoART_i64d. Furthermore, several methods have been renamed for clarity.</PackageReleaseNotes>
     <Description>LibTopoART.Compatibility provides a simplified access to the neural networks of LibTopoART using common data types. In particular, the data type decimal is substituted by more widely supported types such as double.</Description>
     <Copyright>© Marko Tscherepanow. All rights reserved.</Copyright>
     <SignAssembly>true</SignAssembly>
@@ -16,7 +16,7 @@
     <PackageTags>neural network;adaptive resonance theory;lifelong;incremental;machine learning;ART;TopoART</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DebugType>embedded</DebugType>
-    <ReleaseVersion>0.5.0</ReleaseVersion>
+    <ReleaseVersion>0.6.0</ReleaseVersion>
     <PackageVersion>$(ReleaseVersion)</PackageVersion>
     <Version>$(ReleaseVersion)</Version>
     <WarnOn>3390</WarnOn>
@@ -45,7 +45,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="9.0.100" />
+    <PackageReference Update="FSharp.Core" Version="10.0.100" />
     <None Include="logo.png" Pack="true" PackagePath="$(PackageIcon)">
       <Link>logo.png</Link>
     </None>
@@ -56,11 +56,11 @@
     <ProjectReference Include="..\LibTopoART\LibTopoART.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(ReleaseBuild)' == 'true' And ('$(TargetFramework)' == 'netstandard2.1' Or '$(TargetFramework)' == 'net9.0')">
-    <PackageReference Include="LibTopoART" Version="0.98.1" />
+  <ItemGroup Condition="'$(ReleaseBuild)' == 'true' And ('$(TargetFramework)' == 'netstandard2.1' Or '$(TargetFramework)' == 'net10.0')">
+    <PackageReference Include="LibTopoART" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(ReleaseBuild)' == 'true' And '$(TargetFramework)' == 'net472'">
-    <PackageReference Include="LibTopoART" Version="[0.98.1]" />
+    <PackageReference Include="LibTopoART" Version="[1.0.0]" />
   </ItemGroup>
 </Project>
