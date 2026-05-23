@@ -42,6 +42,7 @@
     <Compile Include="Internal.fs" />
     <Compile Include="Types.fs" />
     <Compile Include="TopoART_base.fs" />
+    <Compile Include="TopoART_i64d_common.fs" />
     <Compile Include="TopoART_i64d.fs" />
   </ItemGroup>
   
