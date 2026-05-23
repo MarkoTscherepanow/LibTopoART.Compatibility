@@ -131,10 +131,10 @@ type F2_output_i64d =
 
 //----------------------------------------------------------------------------------------------------------------------
 
-/// <summary>Struct <c>RecallResponse_i64d</c> contains a recall response made by an Episodic TopoART network or a
-/// TopoART-AM network.</summary>
+/// <summary>Struct <c>RecallResponse_d</c> contains a recall response made by an Episodic TopoART network or a
+/// TopoART-AM network using the data type <c>double</c>.</summary>
 [<Struct>]
-type RecallResponse_i64d =
+type RecallResponse_d =
 
     /// <summary>Instance variable <c>recallResult</c> represents the recall output. A value of <c>null</c> indicates
     /// a failed recall step.</summary>
@@ -144,7 +144,7 @@ type RecallResponse_i64d =
     /// A value of <c>LibTopoART_info.UNDEFINED</c> indicates a failed recall step.</summary>
     val F3_activation : double
 
-    /// <summary>This constructor creates an instance of struct <c>RecallResponse_i64d</c>.</summary>
+    /// <summary>This constructor creates an instance of struct <c>RecallResponse_d</c>.</summary>
     /// <param name="recallResult">recall result</param>
     /// <param name="activation">F3 activation</param>
     internal new(recallResult : decimal[], activation : decimal) = {
@@ -173,9 +173,10 @@ type TopoART_C_prediction_i64d =
 
 //----------------------------------------------------------------------------------------------------------------------
 
-/// <summary>Struct <c>TopoART_R_prediction_i64d</c> contains a prediction made by a TopoART-R network.</summary>
+/// <summary>Struct <c>TopoART_R_prediction_d</c> contains a prediction made by a TopoART-R network using the data type
+/// <c>double</c>.</summary>
 [<Struct>]
-type TopoART_R_prediction_i64d =  
+type TopoART_R_prediction_d =  
 
     /// <summary>Instance variable <c>NO_PREDICTION</c> provides a default prediction for variables that are presented
     /// to the network; i.e., these variables are known and no prediction is computed for them.</summary>
@@ -189,7 +190,7 @@ type TopoART_R_prediction_i64d =
     /// </summary>
     val d_vec_prediction : double[]
 
-    /// <summary>This constructor creates an instance of class <c>TopoART_R_prediction_i64d</c> from an instance of
+    /// <summary>This constructor creates an instance of class <c>TopoART_R_prediction_d</c> from an instance of
     /// class <c>TopoART_R_prediction&lt;decimal&gt;</c>.</summary>
     internal new(prediction : TopoART_R_prediction<decimal>) = {
         NO_PREDICTION = double prediction.NO_PREDICTION
