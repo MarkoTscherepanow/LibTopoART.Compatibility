@@ -4,7 +4,7 @@ open LibTopoART
 
 //**********************************************************************************************************************
 
-/// <summary>Class <c>TopoART_i64d_common</c> contains the shared functionality of all TopoART wrappers forwarding
+/// <summary>Class <c>TopoART_i64d_common</c> contains the shared functionality of all TopoART wrappers that forward
 /// methods and properties using the data types <c>int64</c> and <c>double</c>.</summary>
 [<AbstractClass>]
 type TopoART_i64d_common =
@@ -20,12 +20,12 @@ type TopoART_i64d_common =
 
     /// <value>Property <c>Alpha</c> represents the choice parameter alpha.</value>
     override x.Alpha
-        with get() = double (snd x.Net).Alpha 
+        with get() = double (snd x.Net).Alpha
         and set(value : double) = (snd x.Net).Alpha <- decimal value
 
     /// <value>Property <c>Beta_sbm</c> represents the learning rate of the second best-matching nodes.</value>
     override x.Beta_sbm
-        with get() = double (snd x.Net).Beta_sbm 
+        with get() = double (snd x.Net).Beta_sbm
         and set(value : double) = (snd x.Net).Beta_sbm <- decimal value
 
     /// <value>Property <c>ClusterNum</c> represents the number of TopoART clusters found by each module.</value>
@@ -53,7 +53,7 @@ type TopoART_i64d_common =
     /// <value>Property <c>LearningSteps</c> represents the total number of performed learning steps.</value>
     override x.LearningSteps = (snd x.Net).LearningSteps
 
-    /// <value>Property <c>ModuleNum</c> represents the number of TopoART modules used. 
+    /// <value>Property <c>ModuleNum</c> represents the number of TopoART modules used.
     /// (The original TopoART uses two modules.)</value>
     override x.ModuleNum = (snd x.Net).ModuleNum
 
@@ -76,14 +76,14 @@ type TopoART_i64d_common =
     /// <value>Property <c>Phi</c> represents the parameter phi required for the removal of nodes and edges as
     /// well as for the propagation of input to subsequent TopoART modules.</value>
     override x.Phi
-        with get() = (snd x.Net).Phi 
+        with get() = (snd x.Net).Phi
         and set value = (snd x.Net).Phi <- value
 
     /// <value>Property <c>Phis</c> constitutes an extension of property <c>Phi</c> that enables individual values
-    /// of phi for each module. By this, the removal of nodes and edges as well as for the propagation of input to
-    /// subsequent TopoART modules can be controlled in a task dependent manner.</value>
+    /// of phi for each module. Thereby, the removal of nodes and edges as well as the propagation of input to
+    /// subsequent TopoART modules can be controlled in a task-dependent manner.</value>
     override x.Phis
-        with get() = (snd x.Net).Phis 
+        with get() = (snd x.Net).Phis
         and set value = (snd x.Net).Phis <- value
 
     /// <value>Property <c>R</c> represents the radial extend parameter R of Hypersphere TopoART.</value>
@@ -101,7 +101,7 @@ type TopoART_i64d_common =
 
     /// <value>Property <c>Tau</c> represents the parameter tau required for the removal of nodes and edges.</value>
     override x.Tau
-        with get() = (snd x.Net).Tau 
+        with get() = (snd x.Net).Tau
         and set value = (snd x.Net).Tau <- value
 
 //----------------------------------------------------------------------------------------------------------------------

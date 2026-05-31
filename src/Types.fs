@@ -31,16 +31,16 @@ type Network =
 
     /// <summary>Implementation of Hypersphere TopoART-C based on class <c>Hypersphere_TopoART_C</c>.</summary>
     | Hypersphere_TopoART_C = 0x18
-    
+
     /// <summary>This implementation of TopoART-R stores real-valued data in <c>decimal</c> variables. Hence, computations
     /// are rather slow but very accurate.</summary>
     | TopoART_R = 0x21
-    
+
     /// <summary>This implementation of TopoART-R maps real-valued data to <c>int32</c> variables. Hence, computations
     /// are accelerated but less accurate. As a consequence, the results may differ slightly from class <c>TopoART_R</c>.
     /// </summary>
     | Fast_TopoART_R = 0x22
-    
+
     /// <summary>This implementation of TopoART-AM maps real-valued data to <c>int32</c> variables. Hence, computations
     /// are accelerated but less accurate.
     /// </summary>
@@ -64,7 +64,7 @@ type CategoryInfo_i64d =
     /// node.</summary>
     val clusterID : int64
 
-    /// <summary>Instance variable <c>classID</c> represents the class ID of the considered 
+    /// <summary>Instance variable <c>classID</c> represents the class ID of the considered
     /// node. If class IDs are not supported by the respective node, this value is set to
     /// <c>LibTopoART_info.UNDEFINED</c>.</summary>
     val classID : int64
@@ -80,35 +80,35 @@ type CategoryInfo_i64d =
 
 //----------------------------------------------------------------------------------------------------------------------
 
-/// <summary>Class <c>F2_output_i64d</c> provides the output of a single TopoART module. It 
+/// <summary>Class <c>F2_output_i64d</c> provides the output of a single TopoART module. It
 /// is a compressed version of the output vectors y and c.</summary>
 type F2_output_i64d =
 
-    /// <summary>Instance variable <c>bm_node_activation</c> represents the activation of the 
+    /// <summary>Instance variable <c>bm_node_activation</c> represents the activation of the
     /// best-matching node (prediction variant).</summary>
     val bm_node_activation : double
 
-    /// <summary>Instance variable <c>bm_node_ID</c> represents the ID of the best-matching 
+    /// <summary>Instance variable <c>bm_node_ID</c> represents the ID of the best-matching
     /// node.</summary>
     val bm_node_ID : int64
 
-    /// <summary>Instance variable <c>bm_cluster_ID</c> represents the cluster ID of the 
+    /// <summary>Instance variable <c>bm_cluster_ID</c> represents the cluster ID of the
     /// best-matching node.</summary>
     val bm_cluster_ID : int64
 
-    /// <summary>Instance variable <c>bm_permanent_node_activation</c> represents the activation 
+    /// <summary>Instance variable <c>bm_permanent_node_activation</c> represents the activation
     /// of the best-matching permanent node (prediction variant).</summary>
     val bm_permanent_node_activation : double
 
-    /// <summary>Instance variable <c>bm_permanent_node_ID</c> represents the ID of the 
+    /// <summary>Instance variable <c>bm_permanent_node_ID</c> represents the ID of the
     /// best-matching permanent node.</summary>
     val bm_permanent_node_ID : int64
 
-    /// <summary>Instance variable <c>bm_permanent_cluster_ID</c> represents the cluster 
+    /// <summary>Instance variable <c>bm_permanent_cluster_ID</c> represents the cluster
     /// ID of the best-matching permanent node.</summary>
-    val bm_permanent_cluster_ID : int64;
+    val bm_permanent_cluster_ID : int64
 
-    /// <summary>This constructor initializes all fields with <c>LibTopoART_info.UNDEFINED</c>.</summary>
+    /// <summary>This constructor initialises all fields with <c>LibTopoART_info.UNDEFINED</c>.</summary>
     internal new() = {
         bm_node_activation = double LibTopoART_info.UNDEFINED
         bm_node_ID = LibTopoART_info.UNDEFINED
@@ -152,6 +152,27 @@ type RecallResponse_d =
         F3_activation = double activation
     }
 
+/// <summary>Struct <c>RecallResponse_du8</c> contains a recall response made by an Episodic TopoART network or a
+/// TopoART-AM network using the data types <c>uint8</c> and <c>double</c>.</summary>
+[<Struct>]
+type RecallResponse_du8 =
+
+    /// <summary>Instance variable <c>recallResult</c> represents the recall output. A value of <c>null</c> indicates
+    /// a failed recall step.</summary>
+    val recallResult : uint8[]
+
+    /// <summary>Instance variable <c>F3_activation</c> represents the activation of the F3 node used for recall.
+    /// A value of <c>LibTopoART_info.UNDEFINED</c> indicates a failed recall step.</summary>
+    val F3_activation : double
+
+    /// <summary>This constructor creates an instance of struct <c>RecallResponse_du8</c>.</summary>
+    /// <param name="recallResult">recall result</param>
+    /// <param name="activation">F3 activation</param>
+    internal new(recallResult : uint8[], activation : decimal) = {
+        recallResult = recallResult
+        F3_activation = double activation
+    }
+
 //----------------------------------------------------------------------------------------------------------------------
 
 /// <summary>Struct <c>TopoART_C_prediction_i64d</c> contains a prediction made by a TopoART-C network.</summary>
@@ -176,7 +197,7 @@ type TopoART_C_prediction_i64d =
 /// <summary>Struct <c>TopoART_R_prediction_d</c> contains a prediction made by a TopoART-R network using the data type
 /// <c>double</c>.</summary>
 [<Struct>]
-type TopoART_R_prediction_d =  
+type TopoART_R_prediction_d =
 
     /// <summary>Instance variable <c>NO_PREDICTION</c> provides a default prediction for variables that are presented
     /// to the network; i.e., these variables are known and no prediction is computed for them.</summary>
@@ -196,6 +217,32 @@ type TopoART_R_prediction_d =
         NO_PREDICTION = double prediction.NO_PREDICTION
         i_vec_prediction = Internal.toArray_Double prediction.i_vec_prediction
         d_vec_prediction = Internal.toArray_Double prediction.d_vec_prediction
+    }
+
+/// <summary>Struct <c>TopoART_R_prediction_u8</c> contains a prediction made by a TopoART-R network using the data type
+/// <c>uint8</c>.</summary>
+[<Struct>]
+type TopoART_R_prediction_u8 =
+
+    /// <summary>Instance variable <c>NO_PREDICTION</c> provides a default prediction for variables that are presented
+    /// to the network; i.e., these variables are known and no prediction is computed for them. ATTENTION:
+    /// <c>NO_PREDICTION</c> is ambiguous for predictions of type <c>uint8</c>.</summary>
+    val NO_PREDICTION : uint8
+
+    /// <summary>Instance variable <c>i_vec_prediction</c> represents predictions for unknown independent variables.
+    /// </summary>
+    val i_vec_prediction : uint8[]
+
+    /// <summary>Instance variable <c>d_vec_prediction</c> provides the predictions for the dependent variables.
+    /// </summary>
+    val d_vec_prediction : uint8[]
+
+    /// <summary>This constructor creates an instance of class <c>TopoART_R_prediction_u8</c> from an instance of
+    /// class <c>TopoART_R_prediction&lt;byte&gt;</c>.</summary>
+    internal new(prediction : TopoART_R_prediction<byte>) = {
+        NO_PREDICTION = prediction.NO_PREDICTION
+        i_vec_prediction = prediction.i_vec_prediction
+        d_vec_prediction = prediction.d_vec_prediction
     }
 
 //----------------------------------------------------------------------------------------------------------------------
