@@ -9,7 +9,7 @@ open System.Numerics
 /// <summary>Class <c>TopoART_base</c> is the base class of all wrappers contained in LibTopoART.Compatibility.
 /// </summary>
 /// <typeparam name="TInt">The integer type used for parameters.</typeparam>
-/// <typeparam name="TFloat">The floating point type used for parameters.</typeparam>
+/// <typeparam name="TFloat">The floating-point type used for parameters.</typeparam>
 [<AbstractClass>]
 type TopoART_base<'TInt, 'TFloat
 #if NET7_0_OR_GREATER
@@ -77,8 +77,8 @@ type TopoART_base<'TInt, 'TFloat
     abstract member Phi: 'TInt with get, set
 
     /// <value>Property <c>Phis</c> constitutes an extension of property <c>Phi</c> that enables individual values
-    /// of phi for each module. By this, the removal of nodes and edges as well as for the propagation of input to
-    /// subsequent TopoART modules can be controlled in a task dependent manner.</value>
+    /// of phi for each module. Thereby, the removal of nodes and edges as well as the propagation of input to
+    /// subsequent TopoART modules can be controlled in a task-dependent manner.</value>
     abstract member Phis: 'TInt[] with get, set
 
     /// <value>Property <c>R</c> represents the radial extend parameter R of Hypersphere TopoART.</value>
@@ -103,7 +103,7 @@ type TopoART_base<'TInt, 'TFloat
 
     /// <summary>This method stops the recall process of an Episodic TopoART network or a TopoART-AM network and frees
     /// temporary resources.</summary>
-    /// <exception cref="InvalidCastException">Throws when the wrapped network is neither an Episodic TopoART-AM network
+    /// <exception cref="InvalidCastException">Throws when the wrapped network is neither an Episodic TopoART network
     /// nor a TopoART-AM network.</exception>
     member x.EndRecall() =
         if fst x.Net = Internal.NetID.Fast_TopoART_AM then
