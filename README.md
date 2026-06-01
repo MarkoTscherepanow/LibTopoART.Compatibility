@@ -18,4 +18,4 @@ Besides the TopoART neural network itself, LibTopoART comprises implementations 
 
 ### LibTopoART.Compatibility
 
-LibTopoART.Compatibility contains wrappers for the neural networks of LibTopoART using common data types. In particular, the data type decimal is substituted by more widely supported types such as double. LibTopoART.Compatibility is used by the package [TopoART Neural Networks](https://de.mathworks.com/matlabcentral/fileexchange/118455-topoart-neural-networks) available from MATLAB File Exchange.
+LibTopoART.Compatibility contains wrappers for the neural networks of LibTopoART using common data types. In particular, the data type decimal is substituted by more widely supported types such as double. LibTopoART.Compatibility is used by the packages [TopoART Neural Networks](https://de.mathworks.com/matlabcentral/fileexchange/118455-topoart-neural-networks) and [TopoART Layers](https://www.mathworks.com/matlabcentral/fileexchange/183840-topoart-layers) available from MATLAB File Exchange.
