@@ -1,6 +1,7 @@
 namespace LibTopoART.Compatibility
 
 open LibTopoART
+open System.IO
 open System.IO.Compression
 open System.Numerics
 
@@ -129,6 +130,20 @@ type TopoART_base<'TInt, 'TFloat
     /// and below.)</param>
     member x.Save(path : string, compression : CompressionLevel) =
         (snd x.Net).Save(path, compression)
+
+    /// <summary>This method saves the entire network into a byte array using the binary file format.</summary>
+    /// <returns>A byte array containing the saved network.</returns>
+    member x.ToByteArray() =
+        x.ToByteArray(CompressionLevel.NoCompression)
+
+    /// <summary>This method saves the entire network into a byte array using the binary file format.</summary>
+    /// <param name="compression">Compression level of the saved data (Compression is not supported by LibTopoART v0.93
+    /// and below.)</param>
+    /// <returns>A byte array containing the saved network.</returns>
+    member x.ToByteArray(compression : CompressionLevel) =
+        use stream = new MemoryStream()
+        ((snd x.Net) :?> ITopoART_base_stream).Save(stream, compression)
+        stream.ToArray()
 
 //----------------------------------------------------------------------------------------------------------------------
 

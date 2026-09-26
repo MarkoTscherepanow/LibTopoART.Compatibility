@@ -76,6 +76,24 @@ type TopoART_i64du8 =
                 | _ -> raise (InvalidTypeException(Common.InvalidTypeException_UnsupportedNetworkType)))
     }
 
+    /// <summary>This constructor loads a saved network from a byte array. (supported types: <c>Fast_TopoART</c>,
+    /// <c>Fast_TopoART_C</c>, <c>Fast_Episodic_TopoART</c>, <c>Fast_TopoART_R</c>, and <c>Fast_TopoART_AM</c>)
+    /// </summary>
+    /// <param name="data">A byte array containing a network in the binary LibTopoART file format.</param>
+    /// <exception cref="InvalidFileException">Throws when the given data cannot be loaded.</exception>
+    /// <exception cref="InvalidTypeException">Throws when the loaded network type is not supported.</exception>
+    new(data : byte[]) = {
+        inherit TopoART_i64d_common(
+            let net = Internal.loadBytes(data)
+            match fst net with
+                | Internal.NetID.Fast_TopoART
+                | Internal.NetID.Fast_TopoART_C
+                | Internal.NetID.Fast_Episodic_TopoART
+                | Internal.NetID.Fast_TopoART_R
+                | Internal.NetID.Fast_TopoART_AM -> net
+                | _ -> raise (InvalidTypeException(Common.InvalidTypeException_UnsupportedNetworkType)))
+    }
+
 //----------------------------------------------------------------------------------------------------------------------
 
     /// <summary>This method finds the closest category for a given test input.</summary>

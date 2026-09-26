@@ -4,6 +4,26 @@ open LibTopoART
 
 //----------------------------------------------------------------------------------------------------------------------
 
+/// <summary>Type abbreviation re-exporting <see cref="T:LibTopoART.VerbosityLevel"/> so it can be used without opening
+/// the namespace <c>LibTopoART</c>.</summary>
+type VerbosityLevel = LibTopoART.VerbosityLevel
+
+/// <summary>Class <c>Control</c> provides access to the fields of <see cref="T:LibTopoART.LibTopoART_control"/> for
+/// controlling the general behaviour of LibTopoART.</summary>
+[<Sealed; AbstractClass>]
+type Control =
+
+    /// <summary>Property <c>Verbosity</c> enables controlling the number of messages issued by LibTopoART. The
+    /// available levels are <see cref="F:VerbosityLevel.Important"/> (only the most important messages),
+    /// <see cref="F:VerbosityLevel.Normal"/> (the standard messages), and
+    /// <see cref="F:VerbosityLevel.Verbose"/> (all messages). Reads and writes are forwarded to
+    /// <see cref="F:LibTopoART.LibTopoART_control.verbosity"/>.</summary>
+    static member Verbosity
+        with get () = LibTopoART_control.verbosity
+        and set (value : VerbosityLevel) = LibTopoART_control.verbosity <- value
+
+//----------------------------------------------------------------------------------------------------------------------
+
 /// <summary>Enum <c>Network</c> represents the available network implementations. Its values correspond to the
 /// class names of LibTopoART.</summary>
 type Network =
