@@ -87,6 +87,13 @@ type TopoART_i64d =
         inherit TopoART_i64d_common(Internal.load(path))
     }
 
+    /// <summary>This constructor loads a saved network from a byte array.</summary>
+    /// <param name="data">A byte array containing a network in the binary LibTopoART file format.</param>
+    /// <exception cref="InvalidFileException">Throws when the given data cannot be loaded.</exception>
+    new(data : byte[]) = {
+        inherit TopoART_i64d_common(Internal.loadBytes(data))
+    }
+
 //----------------------------------------------------------------------------------------------------------------------
 
     /// <summary>This method finds the closest category for a given test input.</summary>

@@ -4,6 +4,7 @@ module LibTopoART.Compatibility.Internal
 module internal LibTopoART.Compatibility.Internal
 #endif
 
+open System.IO
 open LibTopoART
 
 type NetID =
@@ -45,7 +46,7 @@ let inline toArray_Double(a : ^a[]) =
     else
         null
 
-let load path =
+let load (path : string) =
     let info = Common.LoadBinaryHeader(path)
     if info.IntType.HasValue then
         if info.FloatType.HasValue then
@@ -60,6 +61,30 @@ let load path =
                 | NetworkType.HypersphereTopoARTC, TypeIndex.LongIndex, TypeIndex.DecimalIndex -> (NetID.Hypersphere_TopoART_C, new Hypersphere_TopoART_C(path) :> ITopoART)
                 | NetworkType.TopoARTR, TypeIndex.LongIndex, TypeIndex.DecimalIndex -> (NetID.TopoART_R, new TopoART_R(path) :> ITopoART)
                 | NetworkType.TopoARTR, TypeIndex.LongIndex, TypeIndex.IntIndex -> (NetID.Fast_TopoART_R, new Fast_TopoART_R(path) :> ITopoART)
+                | _ -> raise (InvalidFileException(Common.InvalidFileException_UnsupportedNetworkType))
+        else
+             raise (InvalidFileException(Common.InvalidFileException_UnsupportedFloatType))
+    else
+        raise (InvalidFileException(Common.InvalidFileException_UnsupportedIntegerType))
+
+let loadBytes (data : byte[]) =
+    let info =
+        use headerStream = new MemoryStream(data, false)
+        Common.LoadBinaryHeader(headerStream)
+    if info.IntType.HasValue then
+        if info.FloatType.HasValue then
+            use stream = new MemoryStream(data, false)
+            match (info.Type, info.IntType.Value, info.FloatType.Value) with
+                | NetworkType.TopoART, TypeIndex.LongIndex, TypeIndex.DecimalIndex -> (NetID.TopoART, new TopoART(stream) :> ITopoART)
+                | NetworkType.TopoART, TypeIndex.LongIndex, TypeIndex.IntIndex -> (NetID.Fast_TopoART, new Fast_TopoART(stream) :> ITopoART)
+                | NetworkType.HypersphereTopoART, TypeIndex.LongIndex, TypeIndex.DecimalIndex -> (NetID.Hypersphere_TopoART, new Hypersphere_TopoART(stream) :> ITopoART)
+                | NetworkType.EpisodicTopoART, TypeIndex.LongIndex, TypeIndex.IntIndex -> (NetID.Fast_Episodic_TopoART, new Fast_Episodic_TopoART(stream) :> ITopoART)
+                | NetworkType.TopoARTAM, TypeIndex.LongIndex, TypeIndex.IntIndex -> (NetID.Fast_TopoART_AM, new Fast_TopoART_AM(stream) :> ITopoART)
+                | NetworkType.TopoARTC, TypeIndex.LongIndex, TypeIndex.DecimalIndex -> (NetID.TopoART_C, new TopoART_C(stream) :> ITopoART)
+                | NetworkType.TopoARTC, TypeIndex.LongIndex, TypeIndex.IntIndex -> (NetID.Fast_TopoART_C, new Fast_TopoART_C(stream) :> ITopoART)
+                | NetworkType.HypersphereTopoARTC, TypeIndex.LongIndex, TypeIndex.DecimalIndex -> (NetID.Hypersphere_TopoART_C, new Hypersphere_TopoART_C(stream) :> ITopoART)
+                | NetworkType.TopoARTR, TypeIndex.LongIndex, TypeIndex.DecimalIndex -> (NetID.TopoART_R, new TopoART_R(stream) :> ITopoART)
+                | NetworkType.TopoARTR, TypeIndex.LongIndex, TypeIndex.IntIndex -> (NetID.Fast_TopoART_R, new Fast_TopoART_R(stream) :> ITopoART)
                 | _ -> raise (InvalidFileException(Common.InvalidFileException_UnsupportedNetworkType))
         else
              raise (InvalidFileException(Common.InvalidFileException_UnsupportedFloatType))
